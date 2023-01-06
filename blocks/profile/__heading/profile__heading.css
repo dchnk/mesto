@@ -5,3 +5,11 @@
     font-size: 42px;
     line-height: 48px;
 }
+
+@media screen and (max-width: 410px) {
+    .profile__heading {
+        font-size: 27px;
+        line-height: 33px;
+        margin: 8px;
+    }
+}

@@ -7,3 +7,26 @@
     color: white;
     align-items: center;
 }
+
+@media screen and (max-width: 934px) {
+    .profile {
+        margin: 0 27px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .profile {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 100px 80px;
+        justify-items: center;
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .profile {
+        gap: 1px;
+        text-align: center;
+        margin: 0 19px;
+    }
+}

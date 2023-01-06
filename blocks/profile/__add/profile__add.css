@@ -16,3 +16,15 @@
     opacity: 0.6;
     cursor: pointer;
 }
+
+@media screen and (max-width: 780px) {
+    .profile__add {
+        justify-self: center
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .profile__add {
+        max-width: 282px;
+    }
+}

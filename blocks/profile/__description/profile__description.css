@@ -7,3 +7,17 @@
     grid-row-start: 2;
     grid-row-end: 3;
 }
+
+@media screen and (max-width: 780px) {
+    .profile__description {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .profile__description {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

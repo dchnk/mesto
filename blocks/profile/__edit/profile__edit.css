@@ -13,3 +13,14 @@
     cursor: pointer;
     opacity: 0.7;
 }
+
+@media screen and (max-width: 410px) {
+    .profile__edit {
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        margin: 0;
+        top: 17px;
+        right: -20px;
+    }
+}

@@ -6,10 +6,18 @@
     line-height: 48px;
 }
 
+@media screen and (max-width: 780px) {
+    .profile__heading {
+        text-overflow: ellipsis;
+        overflow-wrap: break-word;
+    }
+}
+
 @media screen and (max-width: 410px) {
     .profile__heading {
         font-size: 27px;
         line-height: 33px;
         margin: 8px;
+        max-width: 200px;
     }
 }

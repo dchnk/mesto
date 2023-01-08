@@ -24,7 +24,7 @@ popupClose.addEventListener("click", closePopup);
 
 let profileHeading = document.querySelector('.profile__heading');
 let profileDescription = document.querySelector('.profile__description');
-let popupInputs = document.querySelectorAll('.pupup__input');
+let popupInputs = document.querySelectorAll('.popup__input');
 
 
 

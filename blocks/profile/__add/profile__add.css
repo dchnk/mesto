@@ -19,7 +19,7 @@
 
 @media screen and (max-width: 780px) {
     .profile__add {
-        justify-self: center
+        justify-self: center;
     }
 }
 

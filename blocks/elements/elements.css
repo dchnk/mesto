@@ -9,10 +9,8 @@
 @media screen and (max-width: 934px) {
     .elements {
         margin: 50px 19px 0;
-        display: grid;
         grid-template-columns: 282px 282px;
         gap: 60px 17px;
-        grid-template-rows: 361px 361px;
         justify-content: space-around;
     }
 }
@@ -20,10 +18,7 @@
 @media screen and (max-width: 620px) {
     .elements {
         margin: 21px auto 0;
-        display: grid;
         grid-template-columns: 282px;
         gap: 20px 17px;
-        grid-template-rows: 361px 361px;
-        justify-content: space-around;
     }
 }

@@ -10,6 +10,9 @@
     border: 2px solid #FFFFFF;
     border-radius: 2px;
     justify-self: end;
+    background-image: url("../../../images/plus.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .profile__add:hover {
@@ -20,11 +23,13 @@
 @media screen and (max-width: 780px) {
     .profile__add {
         justify-self: center;
+        
     }
 }
 
 @media screen and (max-width: 410px) {
     .profile__add {
         max-width: 282px;
+        background-size: 15px;
     }
 }

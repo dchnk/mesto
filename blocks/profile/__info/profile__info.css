@@ -8,17 +8,13 @@
 
 @media screen and (max-width: 780px) {
     .profile__info {
+        grid-template-columns: 18px 1fr 18px;
+        gap: 0 10px;
         text-align: center;
-        display: flex;
-        flex-direction: column;
-        max-width: 336px;
     }
 }
 
 @media screen and (max-width: 410px) {
     .profile__info {
-        justify-items: center;
-        display: block;
-        gap: 8px 0;
     }
 }

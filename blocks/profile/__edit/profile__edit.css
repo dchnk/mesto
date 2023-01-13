@@ -1,5 +1,4 @@
 .profile__edit {
-    display: flex;
     width: 24px;
     height: 24px;
     margin: 15px 0 0 18px;
@@ -7,6 +6,9 @@
     background-color: transparent;
     border: 1px solid white;
     justify-self: end;
+    background-image: url("../../../images/pen.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .profile__edit:hover {
@@ -18,20 +20,13 @@
     .profile__edit {
         width: 18px;
         height: 18px;
-        position: absolute;
-        margin: 0;
-        top: 20px;
-        right: -40px;
+        background-size: 7.5px 7.5px;
+        margin: 25px 0 0;
     }
 }
 
 @media screen and (max-width: 410px) {
     .profile__edit {
-        width: 18px;
-        height: 18px;
-        position: absolute;
-        margin: 0;
-        top: 17px;
-        right: -20px;
+        margin: 18px 0 0;
     }
 }

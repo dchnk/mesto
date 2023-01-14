@@ -3,7 +3,6 @@
     grid-template-columns: 125px 1fr 1fr;
     grid-template-rows: 1fr;
     gap: 25px;
-    min-height: 120px;
     color: white;
     align-items: center;
 }

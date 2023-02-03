@@ -3,4 +3,5 @@
     min-height: 361px;
     overflow: hidden;
     border-radius: 10px;
+    position: relative;
 }

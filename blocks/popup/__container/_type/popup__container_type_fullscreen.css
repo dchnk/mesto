@@ -7,7 +7,7 @@
 
 @media screen and (max-width: 468px) {
     .popup__container_type_fullscreen {
-        margin: auto;        
+        margin: auto;
         transform: translate(0px, 14px);
     }
 }

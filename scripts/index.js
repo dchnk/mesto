@@ -41,6 +41,9 @@ function addCard(cardName, cardLink) {
     cardElement.querySelector('.element__bin').addEventListener('click', function (e) {
         e.target.closest('.element').remove();
     });
+    cardElement.querySelector('.element__photo').addEventListener('click', function (e) {
+        openFullscreen(cardName, cardLink);
+    });
     cardElement.querySelector('.element__like').addEventListener('click', function (e) {
         e.target.classList.toggle('element__like_active');
     })
@@ -144,6 +147,9 @@ function addNewCard(cardName, cardLink) {
     cardElement.querySelector('.element__heading').textContent = cardName;
     cardElement.querySelector('.element__photo').alt = cardName;
     cardElement.querySelector('.element__photo').src = cardLink;
+    cardElement.querySelector('.element__photo').addEventListener('click', function (e) {
+        openFullscreen(cardName, cardLink);
+    });
     cardElement.querySelector('.element__bin').addEventListener('click', function (e) {
         e.target.closest('.element').remove();
     });
@@ -156,9 +162,14 @@ function addNewCard(cardName, cardLink) {
 formElementCard.addEventListener('submit', addFormSubmit);
 
 
+// POPUP fullscreen
+
+const popupFullscreen = document.querySelector('.popup_type_fullscreen');
 
 
-
-
-
-
+function openFullscreen (name, link) {
+    document.querySelector('.popup__image').src = link;
+    document.querySelector('.popup__image-name').textContent = name;
+    document.querySelector('.popup__image').alt = name;
+    openPopup(popupFullscreen);
+};

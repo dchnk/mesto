@@ -1,7 +1,7 @@
 .popup__container_type_fullscreen {
     max-width: 75vw;
     width: fit-content;
-    background-color: transparent;    
+    background-color: transparent;
     transform: translate(0px, 16px);
 }
 

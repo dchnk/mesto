@@ -15,6 +15,8 @@ const addCardButton = document.querySelector('.profile__add');
 const photoNameInput = document.querySelector('.popup__input_type_photo-name');
 const linkInput = document.querySelector('.popup__input_type_link');
 const formElementCard = document.querySelector('.popup__form_type_card');
+const listPopup = document.querySelectorAll('.popup');
+
 
 // Функция создания карточки из темплейта
 
@@ -74,6 +76,26 @@ document.querySelectorAll('.popup__close').forEach(function (item) {
         closePopup(closestPopup);
     })
 });
+
+// Закрыть попап при помощи Ecs
+
+document.addEventListener('keydown', (evt) => {
+    listPopup.forEach((item) => {
+        if (evt.key === 'Escape') {
+            closePopup(item)
+        }
+    })
+})
+
+// Закрыть попап по нажатию вне области контейнера 
+
+listPopup.forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        if (evt.target === item) {
+            closePopup(item);
+        }
+    })
+})
 
 // Открытие и закрытие попапов
 

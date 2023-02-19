@@ -114,10 +114,8 @@ function openPopup(item) {
 function closePopup(item) {    
     item.classList.remove('popup_opened');
     const currentForm = item.querySelector('.popup__form');
-    console.log(currentForm);
 
     currentForm.querySelectorAll('.popup__input').forEach((element) => {
-        console.log(element)
         hideInputError(currentForm, element);
     })
 };

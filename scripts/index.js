@@ -100,17 +100,31 @@ listPopup.forEach((item) => {
 // Открытие и закрытие попапов
 
 function openPopup(item) {
-    item.classList.add('popup_opened');
+    item.classList.add('popup_opened');    
+    enableValidation({
+        formSelector: '.popup__form',
+        inputSelector: '.popup__input',
+        submitButtonSelector: '.popup__submit',
+        inactiveButtonClass: 'popup__submit-error',
+        inputErrorClass: 'popup__input_type_error',
+        errorClass: 'popup__input-error_active'
+      });
 };
 
 function closePopup(item) {    
     item.classList.remove('popup_opened');
+    const currentForm = item.querySelector('.popup__form');
+    console.log(currentForm);
+
+    currentForm.querySelectorAll('.popup__input').forEach((element) => {
+        console.log(element)
+        hideInputError(currentForm, element);
+    })
 };
 
 // Сабмит добавления новой карточки новой карточки из формы
 
-function addFormSubmit (evt) {
-    evt.preventDefault();    
+function addFormSubmit () {   
     addCard(photoNameInput.value, linkInput.value);
     cardsContainer.prepend(currentElement);
     closePopup(popupCard);
@@ -123,7 +137,7 @@ formElementEdit.addEventListener('submit', editFormSubmit);
 profileEdit.addEventListener("click", function() {
     nameInput.value = profileHeading.textContent;
     jobInput.value = profileDescription.textContent;
-    openPopup(popupEdit);   
+    openPopup(popupEdit);
 });
 
 addCardButton.addEventListener("click", function() {

@@ -60,3 +60,12 @@ const toggleButtonState  = (inputList, buttonElement) => {
       buttonElement.disabled = false;
     }
 }
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit-error',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+});

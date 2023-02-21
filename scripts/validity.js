@@ -32,8 +32,8 @@ const setEventListeners = (formElement) => {
     });
 };
   
-const enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
+const enableValidation = (object) => {
+    const formList = Array.from(document.querySelectorAll(object.formSelector));
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', function (evt) {
         evt.preventDefault();
@@ -53,12 +53,20 @@ const hasInvalidInput = (inputList) => {
   
 const toggleButtonState  = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add('popup__submit-error');
-      buttonElement.disabled = true;
+      addSubmitError(buttonElement);
     } else {
-      buttonElement.classList.remove('popup__submit-error');
-      buttonElement.disabled = false;
+      removeSubmitError(buttonElement);
     }
+}
+
+const addSubmitError = (buttonElement) => {
+  buttonElement.classList.add('popup__submit-error');
+  buttonElement.disabled = true;
+}
+
+const removeSubmitError = (buttonElement) => {
+  buttonElement.classList.remove('popup__submit-error');
+  buttonElement.disabled = false;
 }
 
 enableValidation({

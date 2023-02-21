@@ -12,11 +12,13 @@ const profileEdit = document.querySelector('.profile__edit');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupCard = document.querySelector('.popup_type_card');
 const buttonAddCard = document.querySelector('.profile__add');
+const buttonSubmitCard = popupCard.querySelector('.popup__submit');
 const photoNameInput = document.querySelector('.popup__input_type_photo-name');
 const linkInput = document.querySelector('.popup__input_type_link');
 const formElementCard = document.querySelector('.popup__form_type_card');
 const popupList = document.querySelectorAll('.popup');
-
+const buttonEditForm = popupEdit.querySelector('.popup__submit');
+const popupEditInputList = popupEdit.querySelectorAll('.popup__input');
 
 // Функция создания карточки из темплейта
 
@@ -76,10 +78,6 @@ document.querySelectorAll('.popup__close').forEach(function (item) {
     })
 });
 
-// Закрыть попап при помощи Ecs
-
-
-
 // Закрыть попап по нажатию вне области контейнера 
 
 popupList.forEach((item) => {
@@ -90,53 +88,25 @@ popupList.forEach((item) => {
     })
 })
 
-// document.addEventListener('keydown', (evt) => {
-//     popupList.forEach((item) => {
-//         if (evt.key === 'Escape' && item.classList.contains('popup_opened')) {
-//             closePopup(item);
-//         }
-//     })
-// }) 
-
 // Callback для обработчика закрытия по нажатию на ESC
 
-function checkEvt (evt) {
-    popupList.forEach((item) => {
-        if (evt.key === 'Escape' && item.classList.contains('popup_opened')) {
-            closePopup(item);
-        };
-    })   
+function handleCloseByEsc (evt) {
+    if (evt.key === 'Escape') {
+        const popupOpened = document.querySelector('.popup_opened')
+        closePopup(popupOpened);
+    }; 
 }
 
 // Открытие и закрытие попапов
 
 function openPopup(item) {
     item.classList.add('popup_opened');
-
-    if (item === popupEdit) {
-        const buttonEditForm = popupEdit.querySelector('.popup__submit');
-        buttonEditForm.disabled = false;
-        buttonEditForm.classList.remove('popup__submit-error');
-    } else if (item === popupCard) {
-        const buttonAddCard = popupCard.querySelector('.popup__submit');
-        buttonAddCard.disabled = true;
-        buttonAddCard.classList.add('popup__submit-error');
-    }
-
-    document.addEventListener('keydown', checkEvt);
+    document.addEventListener('keydown', handleCloseByEsc);
 };
 
 function closePopup(item) {    
     item.classList.remove('popup_opened');    
-
-    if (item === popupEdit) {    
-        popupEdit.querySelectorAll('.popup__input').forEach((element) => {
-            const currentForm = item.querySelector('.popup__form');
-            hideInputError(currentForm, element);              
-        })
-    }
-    
-    document.removeEventListener('keydown', checkEvt);
+    document.removeEventListener('keydown', handleCloseByEsc);
 };
 
 // Сабмит добавления новой карточки новой карточки из формы
@@ -154,11 +124,18 @@ formElementEdit.addEventListener('submit', handleEditFormSubmit);
 profileEdit.addEventListener("click", function() {
     nameInput.value = profileHeading.textContent;
     jobInput.value = profileDescription.textContent;
+    
+    popupEditInputList.forEach((element) => {
+        hideInputError(formElementEdit, element);
+    })
+    
+    removeSubmitError(buttonEditForm);
     openPopup(popupEdit);
 });
 
 buttonAddCard.addEventListener("click", function() {
     formElementCard.reset();
+    addSubmitError(buttonSubmitCard);
     openPopup(popupCard);
 });
 

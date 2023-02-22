@@ -19,6 +19,7 @@ const formElementCard = document.querySelector('.popup__form_type_card');
 const popupList = document.querySelectorAll('.popup');
 const buttonEditForm = popupEdit.querySelector('.popup__submit');
 const popupEditInputList = popupEdit.querySelectorAll('.popup__input');
+const popupCardInputList = popupCard.querySelectorAll('.popup__input');
 
 // Функция создания карточки из темплейта
 
@@ -123,19 +124,20 @@ formElementEdit.addEventListener('submit', handleEditFormSubmit);
 
 profileEdit.addEventListener("click", function() {
     nameInput.value = profileHeading.textContent;
-    jobInput.value = profileDescription.textContent;
-    
+    jobInput.value = profileDescription.textContent;    
     popupEditInputList.forEach((element) => {
-        hideInputError(formElementEdit, element);
-    })
-    
-    removeSubmitError(buttonEditForm);
+        hideInputError(formElementEdit, element, objectEnable.inputErrorClass, objectEnable.errorClass);
+    });    
+    removeSubmitError(buttonEditForm, objectEnable.inactiveButtonClass);
     openPopup(popupEdit);
 });
 
 buttonAddCard.addEventListener("click", function() {
     formElementCard.reset();
-    addSubmitError(buttonSubmitCard);
+    addSubmitError(buttonSubmitCard, objectEnable.inactiveButtonClass);
+    popupCardInputList.forEach((element) => {
+        hideInputError(formElementCard, element, objectEnable.inputErrorClass, objectEnable.errorClass);
+    });
     openPopup(popupCard);
 });
 

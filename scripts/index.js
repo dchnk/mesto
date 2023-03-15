@@ -1,5 +1,6 @@
-import {initialCards, Card} from './Card.js';
-import {FormValidator, objectEnable} from './FormValidator.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {initialCards, validationSettings} from './constants.js';
 
 
 const popupFullscreen = document.querySelector('.popup_type_fullscreen');
@@ -14,14 +15,10 @@ const profileEdit = document.querySelector('.profile__edit');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupCard = document.querySelector('.popup_type_card');
 const buttonAddCard = document.querySelector('.profile__add');
-const buttonSubmitCard = popupCard.querySelector('.popup__submit');
 const photoNameInput = document.querySelector('.popup__input_type_photo-name');
 const linkInput = document.querySelector('.popup__input_type_link');
 const formElementCard = document.querySelector('.popup__form_type_card');
 const popupList = document.querySelectorAll('.popup');
-const buttonEditForm = popupEdit.querySelector('.popup__submit');
-const popupEditInputList = popupEdit.querySelectorAll('.popup__input');
-const popupCardInputList = popupCard.querySelectorAll('.popup__input');
 const popupImage = document.querySelector('.popup__image');
 const popupImageName = document.querySelector('.popup__image-name');
 const formList = document.querySelectorAll('.popup__form');
@@ -35,7 +32,7 @@ const openPhotoPopup = (name, link) => {
     openPopup(popupFullscreen);
 }
 
-const renderCard = (item) => {
+const createCard = (item) => {
     const card = new Card(item.name, item.link, cardTemplate, openPhotoPopup);
     const cardElement = card.generateCard();
     return cardElement;
@@ -50,16 +47,19 @@ const addCardPrepend = (cardElement) => {
 }
 
 initialCards.forEach((item) => {
-    addCardAppend(renderCard(item));
+    addCardAppend(createCard(item));
 })
 
 // Validator
 
+const validators = {};
 
 formList.forEach((item) => {
-    const validator = new FormValidator(objectEnable, item);
+    const validator = new FormValidator(validationSettings, item);
+    validators[item.getAttribute('name')] = validator;
     validator.enableValidation();
 })
+
 
 // // Сабмит в форме редактирования профиля
 
@@ -97,8 +97,6 @@ function handleCloseByEsc (evt) {
     }; 
 }
 
-
-
 // Открытие и закрытие попапов
 
 function openPopup(item) {
@@ -115,19 +113,9 @@ function closePopup(item) {
 
 function addFormSubmit () {   
     const currentElement = {name: photoNameInput.value, link: linkInput.value};
-    addCardPrepend(renderCard(currentElement));
+    addCardPrepend(createCard(currentElement));
     closePopup(popupCard);
 }
-
-const hideInputErrors = (inputList) => {
-    inputList.forEach((element) => {
-        const errorElement = document.querySelector(`.${element.id}-error`);
-        element.classList.remove(objectEnable.inputErrorClass);
-        errorElement.classList.remove(objectEnable.errorClass);
-        errorElement.textContent = '';       
-    }); 
-}
-
 
 // EVENT LISTENERS
 
@@ -135,20 +123,14 @@ formElementEdit.addEventListener('submit', handleEditFormSubmit);
 
 profileEdit.addEventListener("click", function() {
     nameInput.value = profileHeading.textContent;
-    jobInput.value = profileDescription.textContent;    
-    hideInputErrors(popupEditInputList);   
-    buttonEditForm.disabled = false;
-    buttonEditForm.classList.remove(objectEnable.inactiveButtonClass)
+    jobInput.value = profileDescription.textContent;
+    validators[formElementEdit.getAttribute('name')].resetValidationState();
     openPopup(popupEdit);
 });
 
-
-
 buttonAddCard.addEventListener("click", function() {
     formElementCard.reset();
-    buttonSubmitCard.disabled = true;
-    buttonSubmitCard.classList.add(objectEnable.inactiveButtonClass)
-    hideInputErrors(popupCardInputList);
+    validators[formElementCard.getAttribute('name')].resetValidationState();
     openPopup(popupCard);
 });
 

@@ -1,25 +1,23 @@
-export const objectEnable = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit-error',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
-
-
 export class FormValidator {
-  constructor(object, currentFormValidation) {
-    this._object = object;
+  constructor(validationSettings, currentFormValidation) {
+    this._validationSettings = validationSettings;
     this._currentFormValidation = currentFormValidation;
   }
   
   enableValidation() {
-      this._submitDefault();
+      this._findButtonSubmit();
       this._findFormInputList();
-      this._setEventListenersFormInput();
+      this._submitDefault();      
+      this._setInputsEventListeners();
   };
   
+  resetValidationState() {
+    this._inputList.forEach((input) => {
+      this._hideErrorMassage(input);
+      this._toggleButtonState();
+    })
+  }
+
   _submitDefault() {
     this._currentFormValidation.addEventListener('submit', function (evt) {
       evt.preventDefault();
@@ -27,10 +25,14 @@ export class FormValidator {
   }
   
   _findFormInputList = () => {
-    this._inputList = Array.from(this._currentFormValidation.querySelectorAll(this._object.inputSelector));
+    this._inputList = Array.from(this._currentFormValidation.querySelectorAll(this._validationSettings.inputSelector));
   }
   
-  _setEventListenersFormInput() {
+  _findButtonSubmit = () => {
+    this._ButtonElement = this._currentFormValidation.querySelector(this._validationSettings.submitButtonSelector);
+  }
+  
+  _setInputsEventListeners() {
     this._inputList.forEach((input) => {
       input.addEventListener('input', () => {
         this._handleInputEvent(input);
@@ -47,16 +49,14 @@ export class FormValidator {
     }
   }
   
-  _hasInvalidInput = (inputList) => {    
-    return inputList.some((input) => {
-      if (this._checkInput(input)) {
-        return true;
-      }
+  _hasInvalidInput = () => {    
+    return this._inputList.some((input) => {      
+      return this._checkInput(input);
     })
   }
   
   _toggleButtonState() {    
-    if (this._hasInvalidInput(this._inputList)) {
+    if (this._hasInvalidInput()) {
       this._addSubmitError();
     } else {
       this._removeSubmitError();
@@ -64,15 +64,13 @@ export class FormValidator {
   };
   
   _addSubmitError() {
-    const buttonElement = this._currentFormValidation.querySelector(this._object.submitButtonSelector);
-    buttonElement.classList.add(this._object.inactiveButtonClass);
-    buttonElement.disabled = true;
+    this._ButtonElement.classList.add(this._validationSettings.inactiveButtonClass);
+    this._ButtonElement.disabled = true;
   }
   
   _removeSubmitError() {
-    const buttonElement = this._currentFormValidation.querySelector(this._object.submitButtonSelector);
-    buttonElement.classList.remove(this._object.inactiveButtonClass);
-    buttonElement.disabled = false;
+    this._ButtonElement.classList.remove(this._validationSettings.inactiveButtonClass);
+    this._ButtonElement.disabled = false;
   }
   
   _checkInput(input) {
@@ -83,18 +81,15 @@ export class FormValidator {
   
   _showErrorMassage(input) {
     const errorElement = this._currentFormValidation.querySelector(`.${input.id}-error`);
-    input.classList.add(this._object.inputErrorClass);
+    input.classList.add(this._validationSettings.inputErrorClass);
     errorElement.textContent = input.validationMessage;
-    errorElement.classList.add(this._object.errorClass);
+    errorElement.classList.add(this._validationSettings.errorClass);
   }
   
   _hideErrorMassage(input) {
     const errorElement = this._currentFormValidation.querySelector(`.${input.id}-error`);
-    input.classList.remove(this._object.inputErrorClass);
-    errorElement.classList.remove(this._object.errorClass);
+    input.classList.remove(this._validationSettings.inputErrorClass);
+    errorElement.classList.remove(this._validationSettings.errorClass);
     errorElement.textContent = '';
   }
 }
-
-
-

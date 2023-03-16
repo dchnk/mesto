@@ -13,9 +13,9 @@ export class FormValidator {
   
   resetValidationState() {
     this._inputList.forEach((input) => {
-      this._hideErrorMassage(input);
-      this._toggleButtonState();
+      this._hideErrorMassage(input);      
     })
+    this._toggleButtonState();
   }
 
   _submitDefault() {
@@ -29,7 +29,7 @@ export class FormValidator {
   }
   
   _findButtonSubmit = () => {
-    this._ButtonElement = this._currentFormValidation.querySelector(this._validationSettings.submitButtonSelector);
+    this._buttonElement = this._currentFormValidation.querySelector(this._validationSettings.submitButtonSelector);
   }
   
   _setInputsEventListeners() {
@@ -64,13 +64,13 @@ export class FormValidator {
   };
   
   _addSubmitError() {
-    this._ButtonElement.classList.add(this._validationSettings.inactiveButtonClass);
-    this._ButtonElement.disabled = true;
+    this._buttonElement.classList.add(this._validationSettings.inactiveButtonClass);
+    this._buttonElement.disabled = true;
   }
   
   _removeSubmitError() {
-    this._ButtonElement.classList.remove(this._validationSettings.inactiveButtonClass);
-    this._ButtonElement.disabled = false;
+    this._buttonElement.classList.remove(this._validationSettings.inactiveButtonClass);
+    this._buttonElement.disabled = false;
   }
   
   _checkInput(input) {

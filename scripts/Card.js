@@ -1,8 +1,8 @@
 export class Card {
-  constructor(cardName, cardLink, templateElement, onPhotoClick) {
+  constructor({link, name}, templateElement, onPhotoClick) {
     this._onPhotoClick = onPhotoClick;
-    this._cardName = cardName;
-    this._cardLink = cardLink;
+    this._cardName = name;
+    this._cardLink = link;
     this._templateElement = templateElement;    
   }
   
@@ -23,7 +23,6 @@ export class Card {
     this._setEventListeners();
     
     
-    // const elementPhoto = this._element.querySelector('.element__photo');
     this._elementHeadnig.textContent = this._cardName;
     this._elementPhoto.alt = this._cardName;
     this._elementPhoto.src = this._cardLink;

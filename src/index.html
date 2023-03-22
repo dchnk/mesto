@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <title>Место</title>
 </head>
 <body class="page">
     <header class="header">
-        <img class="header__logo" src="./images/logo/logo-mesto-white.svg" alt="логотип">
+        <img class="header__logo" src="<%=require('../src/images/logo/logo-mesto-white.svg')%>" alt="логотип">
     </header>
     <main class="main">
         <section class="profile">
-            <img class="profile__avatar" src="./images/kusto.png" alt="кусто">
+            <img class="profile__avatar" src="<%=require('../src/images/kusto.png')%>" alt="кусто">
             <div class="profile__info">
                 <h1 class="profile__heading">Жак-Ив Кусто</h1>
                 <button class="profile__edit" type="button"></button>
@@ -69,7 +68,6 @@
                 <button type="button" class="element__like"></button>
             </div>
         </article>
-    </template>    
-    <script src="./scripts/index.js" type="module"></script>
+    </template>
 </body>
 </html>

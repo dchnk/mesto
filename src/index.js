@@ -1,28 +1,33 @@
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
-import {initialCards, validationSettings} from './constants.js';
-import { Section } from './Section.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+import './index.css';
+import {Card} from '../src/companents/Card.js';
+import {FormValidator} from '../src/companents/FormValidator.js';
+import { Section } from '../src/companents/Section.js';
+import { PopupWithImage } from '../src/companents/PopupWithImage.js';
+import { PopupWithForm } from '../src/companents/PopupWithForm.js';
+import { UserInfo } from '../src/companents/UserInfo.js';
+import {
+initialCards,
+validationSettings,
+popupFullscreen,
+cardTemplate,
+cardsContainer,
+profileHeading,
+profileDescription,
+formElementEdit,
+profileEdit,
+popupEdit,
+popupCard,
+buttonAddCard,
+formElementCard,
+formList
+} from '../src/utils/constants.js';
 
 
-const popupFullscreen = document.querySelector('.popup_type_fullscreen');
-const cardsContainer = document.querySelector('.elements');
-const cardTemplate = document.querySelector('#content-element').content;
-const profileHeading = document.querySelector('.profile__heading');
-const profileDescription = document.querySelector('.profile__description');
-const formElementEdit = document.querySelector('.popup__form_type_edit');
-const profileEdit = document.querySelector('.profile__edit');
-const popupEdit = document.querySelector('.popup_type_edit');
-const popupCard = document.querySelector('.popup_type_card');
-const buttonAddCard = document.querySelector('.profile__add');
-const formElementCard = document.querySelector('.popup__form_type_card');
-const formList = document.querySelectorAll('.popup__form');
 
 // Создание карточки
 
 const popupWithImage = new PopupWithImage(popupFullscreen);
+const profileInfo = new UserInfo({profileHeading, profileDescription})
 
 const createCard = (item) => {
     const card = new Card(item, cardTemplate, popupWithImage.openPopup);
@@ -70,10 +75,7 @@ formList.forEach((item) => {
 })
 
 
-// // Сабмит в форме редактирования профиля
-
-const profileInfo = new UserInfo({profileHeading, profileDescription})
-
+// Форма редактирования профиля
 
 const profileEditPopup = new PopupWithForm(popupEdit, {
     clickOnSubmit: (item) => {
@@ -91,7 +93,6 @@ const profileEditPopup = new PopupWithForm(popupEdit, {
     
 });
 
-profileEdit.addEventListener("click", function() {
-    
+profileEdit.addEventListener("click", function() {    
     profileEditPopup.openPopup();
 });

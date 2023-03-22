@@ -33,3 +33,16 @@ export const validationSettings = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active'
 }
+
+export const popupFullscreen = document.querySelector('.popup_type_fullscreen');
+export const cardTemplate = document.querySelector('#content-element').content;
+export const cardsContainer = document.querySelector('.elements');
+export const profileHeading = document.querySelector('.profile__heading');
+export const profileDescription = document.querySelector('.profile__description');
+export const formElementEdit = document.querySelector('.popup__form_type_edit');
+export const profileEdit = document.querySelector('.profile__edit');
+export const popupEdit = document.querySelector('.popup_type_edit');
+export const popupCard = document.querySelector('.popup_type_card');
+export const buttonAddCard = document.querySelector('.profile__add');
+export const formElementCard = document.querySelector('.popup__form_type_card');
+export const formList = document.querySelectorAll('.popup__form');

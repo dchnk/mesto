@@ -1,10 +1,10 @@
-import './index.css';
-import {Card} from '../src/companents/Card.js';
-import {FormValidator} from '../src/companents/FormValidator.js';
-import { Section } from '../src/companents/Section.js';
-import { PopupWithImage } from '../src/companents/PopupWithImage.js';
-import { PopupWithForm } from '../src/companents/PopupWithForm.js';
-import { UserInfo } from '../src/companents/UserInfo.js';
+import '../pages/index.css';
+import {Card} from '../components/Card.js';
+import {FormValidator} from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
 import {
 initialCards,
 validationSettings,
@@ -20,14 +20,19 @@ popupCard,
 buttonAddCard,
 formElementCard,
 formList
-} from '../src/utils/constants.js';
+} from '../utils/constants.js';
 
+
+
+const profileInfo = new UserInfo({profileHeading, profileDescription})
 
 
 // Создание карточки
 
+// Попап fullscreen для карточки
+
 const popupWithImage = new PopupWithImage(popupFullscreen);
-const profileInfo = new UserInfo({profileHeading, profileDescription})
+popupWithImage.setEventListeners();
 
 const createCard = (item) => {
     const card = new Card(item, cardTemplate, popupWithImage.openPopup);
@@ -45,13 +50,12 @@ const cardSection = new Section({
     
 cardSection.renderItems();
 
+// Форма добавления новой карточки
+
 const popupCardAdd = new PopupWithForm(popupCard, {
     clickOnSubmit: (item) => {
         const card = createCard(item);
         cardSection.setItemPrepend(card)
-    }, 
-    closePopupForm: () => {
-        formElementCard.reset();
     },
     
     openPopupForm: () => {
@@ -60,8 +64,31 @@ const popupCardAdd = new PopupWithForm(popupCard, {
     
 });
 
+popupCardAdd.setEventListeners();
+
 buttonAddCard.addEventListener("click", function() {
     popupCardAdd.openPopup();
+});
+
+// Форма редактирования профиля
+
+const profileEditPopup = new PopupWithForm(popupEdit, {
+    clickOnSubmit: (item) => {
+        profileInfo.setUserInfo(item);
+    },
+    
+    openPopupForm: () => {
+        const currentInputValueList = profileInfo.getUserInfo();
+        profileEditPopup.setInputValues(currentInputValueList)
+        validators[formElementEdit.getAttribute('name')].resetValidationState();
+    }
+    
+});
+
+profileEditPopup.setEventListeners();
+
+profileEdit.addEventListener("click", function() {    
+    profileEditPopup.openPopup();
 });
 
 // Validator
@@ -73,26 +100,3 @@ formList.forEach((item) => {
     validators[item.getAttribute('name')] = validator;
     validator.enableValidation();
 })
-
-
-// Форма редактирования профиля
-
-const profileEditPopup = new PopupWithForm(popupEdit, {
-    clickOnSubmit: (item) => {
-        profileInfo.setUserInfo(item);
-    }, 
-    closePopupForm: () => {
-        
-    },
-    
-    openPopupForm: () => {
-        const currentInputValueList = profileInfo.getUserInfo();
-        profileEditPopup.setInputValues(currentInputValueList)
-        validators[formElementEdit.getAttribute('name')].resetValidationState();
-    }
-    
-});
-
-profileEdit.addEventListener("click", function() {    
-    profileEditPopup.openPopup();
-});

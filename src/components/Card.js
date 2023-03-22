@@ -51,6 +51,7 @@ export class Card {
   
   _handleButtonBinClick() {
     this._element.remove();
+    this._element = null;
   }
   
   _handlePhotoClick() {    

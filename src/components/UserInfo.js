@@ -5,8 +5,8 @@ export class UserInfo {
     }
     
     getUserInfo = () => {
-        this._inputList = {fullname: this._userName.textContent, job: this._userDescription.textContent}
-        return this._inputList;
+        this._profileValues = {fullname: this._userName.textContent, job: this._userDescription.textContent}
+        return this._profileValues;
     }
     
     setUserInfo = ({fullname, job}) => {

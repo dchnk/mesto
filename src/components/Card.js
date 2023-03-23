@@ -6,7 +6,7 @@ export class Card {
     this._templateElement = templateElement;    
   }
   
-  _getTempalte() {
+  _getTemplate() {
     const cardElement = this._templateElement
     .querySelector('.element')
     .cloneNode(true);
@@ -15,7 +15,7 @@ export class Card {
   }
   
   generateCard() {
-    this._element = this._getTempalte();
+    this._element = this._getTemplate();
     this._elementHeadnig = this._element.querySelector('.element__heading');
     this._elementPhoto = this._element.querySelector('.element__photo');
     this._elementBin = this._element.querySelector('.element__bin');

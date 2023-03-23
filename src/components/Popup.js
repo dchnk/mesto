@@ -30,12 +30,6 @@ export class Popup {
         };
     }
     
-    _handleEscClose(evt) {
-        if (evt.key === 'Escape') () => {
-            this.closePopup();
-        };
-    }
-    
     _handleClickOverlayClose(evt) {
         if (evt.target === this._popup) {
             this.closePopup();

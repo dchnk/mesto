@@ -1,16 +1,18 @@
 export class UserInfo {
-    constructor({profileHeading, profileDescription}) {
+    constructor({profileHeading, profileDescription, profileAvatar}) {
         this._userName = profileHeading;
-        this._userDescription = profileDescription;
+        this._userDescription = profileDescription;        
+        this._profileAvatar = profileAvatar;
     }
     
     getUserInfo = () => {
-        this._profileValues = {fullname: this._userName.textContent, job: this._userDescription.textContent}
+        this._profileValues = {name: this._userName.textContent, about: this._userDescription.textContent}
         return this._profileValues;
     }
     
-    setUserInfo = ({fullname, job}) => {
-        this._userName.textContent = fullname;
-        this._userDescription.textContent = job;
+    setUserInfo = ({name, about, avatar}) => {
+        this._userName.textContent = name;
+        this._userDescription.textContent = about;
+        this._profileAvatar.src = avatar;
     }
 }

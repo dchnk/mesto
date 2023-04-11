@@ -31,7 +31,6 @@ export class PopupWithForm extends Popup {
     _handleFormSubmitClick = () => {
         this._getInputValues();
         this._clickOnSubmit(this._inputValuesList);
-        this.closePopup();
     }
     
     closePopup = () => {

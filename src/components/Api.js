@@ -8,9 +8,6 @@ export class Api {
         }
     }
 
-    _showError = (err) => {
-        return console.error(err)
-    }
 
     _checkRequestResult = (res) => {
         if (res.ok) {
@@ -20,7 +17,7 @@ export class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
 
-    deleteItemRequest = (id, doAfterRequest) => {
+    deleteItemRequest = (id) => {
         return fetch(`${this._baseUrl}/cards/${id}`, {
             method: 'DELETE',
             headers: this._headers
@@ -28,27 +25,15 @@ export class Api {
         .then(res => {
             return this._checkRequestResult(res);
         })
-        .then(() => {
-            doAfterRequest();
-        })
-        .catch((err) => {
-            this._showError(err)
-        });;
     ;}
 
-    takeProfileInfoRequest = (doAfterRequest) => {
+    takeProfileInfoRequest = () => {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
         .then(res => {
             return this._checkRequestResult(res);            
         })
-        .then((res) => {
-            return doAfterRequest(res)
-        })
-        .catch((err) => {
-            this._showError(err)
-        });
     }
 
     takeCardsRequset = () => {
@@ -58,9 +43,6 @@ export class Api {
         .then(res => {
             return this._checkRequestResult(res);            
         })
-        .catch((err) => {
-            this._showError(err)
-        });
     }
 
     switchLikeStatusRequest = (method, item) => {
@@ -71,9 +53,6 @@ export class Api {
         .then(res => {
             return this._checkRequestResult(res);
         })
-        .catch((err) => {
-            this._showError(err)
-        });
     }
 
     updateProfileInfoRequest = (item) => {
@@ -86,10 +65,7 @@ export class Api {
         })
         .then(res => {
             return this._checkRequestResult(res);
-        })
-        .catch((err) => {
-            this._showError(err)
-        })        
+        })             
     }
 
     postNewCardRequest = (item) => {
@@ -104,9 +80,6 @@ export class Api {
         .then(res => {
             return this._checkRequestResult(res);
         })
-        .catch((err) => {
-            this._showError(err)
-        })
     }
 
     editUserInfoRequet = (item) => {
@@ -120,9 +93,6 @@ export class Api {
         })
         .then(res => {
             return this._checkRequestResult(res);
-        })
-        .catch((err) => {
-            this._showError(err)
         })
     }
 }

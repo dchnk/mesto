@@ -5,6 +5,7 @@ export class PopupDelete extends Popup {
         super(popup);
         this._clickOnSubmit = clickOnSubmit;
         this._form = this._popup.querySelector('.popup__form');
+        this._formSubmit = this._popup.querySelector('.popup__submit');
     }
     
     openPopup = (itemForDelete, itemId) => {
@@ -20,8 +21,13 @@ export class PopupDelete extends Popup {
 
     _handleClickOnSubmit = () => {
         this._clickOnSubmit(this._itemForDelete, this._itemId);
-        super.closePopup()
     }
 
-    
+    renderLoading(isLoading, textLoading) {
+        if (isLoading) {
+          this._formSubmit.textContent = `${textLoading}`
+        } else {
+          this._formSubmit.textContent = `${textLoading}`
+        }
+      }
 }

@@ -1,6 +1,7 @@
 export class Card {
-  constructor(item, templateElement, onPhotoClick, onBinClick, onLikeClick, onUnlikeClick) {
+  constructor(item, templateElement, onPhotoClick, onBinClick, onLikeClick, onUnlikeClick, user) {
     this._item = item;
+    this._user = user;
     this._usersLiked = item.likes;
     this._onPhotoClick = onPhotoClick;
     this._onLikeClick = onLikeClick;
@@ -23,7 +24,7 @@ export class Card {
     .querySelector('.element')
     .cloneNode(true);
     
-    if (this._ownerId && this._ownerId != "7da823c1ab8e37c03f014c24") {
+    if (this._ownerId && this._ownerId != this._user) {
       cardElement.querySelector('.element__bin').remove()
     };
 
@@ -66,7 +67,7 @@ export class Card {
 }
 
 _findUserLike = (user) => {
-  if (user._id === "7da823c1ab8e37c03f014c24") {
+  if (user._id === this._user) {
     return this._isLike = true;
   }
 }

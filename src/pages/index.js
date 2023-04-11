@@ -1,3 +1,5 @@
+let userId;
+
 import '../pages/index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -33,42 +35,51 @@ apiOptions
 
 const api = new Api(apiOptions);
 
+const showError = (err) => {
+    return console.error(err)
+}
+
 // Попап подтверждения удаления карточки
 
 const popupTypeDelete = new PopupDelete(popupDelete, {clickOnSubmit: (item, id) => {    
-    api.deleteItemRequest(id, () => {
+    popupTypeDelete.renderLoading(true, 'Удаление...');
+    api.deleteItemRequest(id)
+    .then(() => {
         item.remove();
         item = null;
+        popupTypeDelete.closePopup();
+    })
+    .catch((err) => {
+        showError(err)
+    })
+    .finally(() => {
+        popupTypeDelete.renderLoading(false, 'Удалить');
     })
 }})
-
 popupTypeDelete.setEventListeners();
 
 // Профиль пользователя, запрос и размерещение информации о пользователе на странице
 
+
+
 const profileInfo = new UserInfo({profileHeading, profileDescription, profileAvatar})
 
-api.takeProfileInfoRequest((result) => {
-    profileInfo.setUserInfo(result)
+const profileInfoFromServer = api.takeProfileInfoRequest();
+const cardsFromServer = api.takeCardsRequset();
+
+Promise.all([profileInfoFromServer, cardsFromServer])
+    .then(([userData, cards]) => {
+        profileInfo.setUserInfo(userData);
+        cardSection.renderItems(cards);        
     })
-;
-
-
-// Создание секции под карточки, добавление карточек из сервера
-
-const cardsFromServer = api.takeCardsRequset()
-
-cardsFromServer.then((res) => {
-    cardSection.renderItems(res)
-})
+    .catch((err) => {
+        showError(err)
+    });
 
 const cardSection = new Section((item) => {
     const card = createCard(item);
     cardSection.setItemAppend(card);
 }, cardsContainer)
-
-
-
 
 
 // Попап fullscreen для карточки
@@ -78,17 +89,22 @@ popupWithImage.setEventListeners();
 
 
 // Создание новой карточки
-
+profileInfoFromServer.then((userData) => {return userId = userData._id})
 const createCard = (item) => {
     const card = new Card(item, cardTemplate, popupWithImage.openPopup, popupTypeDelete.openPopup,
         (item) => {
             api.switchLikeStatusRequest('PUT', item)
-            .then(res => card.setLikesInfo(res.likes))
+            .then(res => card.setLikesInfo(res.likes))            
+            .catch((err) => {
+                showError(err)
+            });
         }, (item) => {
             api.switchLikeStatusRequest('DELETE', item)
             .then(res => card.setLikesInfo(res.likes))
-    }
-    );    
+            .catch((err) => {
+                showError(err)
+            });
+    }, userId);
     const currentCard = card.generateCard();
     return currentCard;
 }
@@ -99,13 +115,17 @@ const createCard = (item) => {
 
 const popupAvatarEdit = new PopupWithForm(popupAvatar, {
     clickOnSubmit: (item) => {
-        popupAvatarEdit.renderLoading(true, 'Сохранение...');        
-        api.updateProfileInfoRequest(item)        
+        popupAvatarEdit.renderLoading(true, 'Сохранение...');  
+        api.updateProfileInfoRequest(item)
         .then((result) => {
             profileInfo.setUserInfo(result);
+            popupAvatarEdit.closePopup()
         })
-        .finally(() => {
-            popupAvatarEdit.renderLoading(false, 'Сохранить');
+        .catch((err) => {
+            showError(err)
+        })
+        .finally(() => {            
+            popupAvatarEdit.renderLoading(false, 'Сохранить');            
         })
     },
     
@@ -131,6 +151,10 @@ const popupCardAdd = new PopupWithForm(popupCard, {
         .then((result) => {
             const card = createCard(result);
             cardSection.setItemPrepend(card)
+            popupCardAdd.closePopup()
+        })        
+        .catch((err) => {
+            showError(err)
         })
         .finally(() => {
             popupCardAdd.renderLoading(false, 'Создать');
@@ -158,6 +182,10 @@ const profileEditPopup = new PopupWithForm(popupEdit, {
         api.editUserInfoRequet(item)
         .then((result) => {
             profileInfo.setUserInfo(result);
+            profileEditPopup.closePopup()
+        })        
+        .catch((err) => {
+            showError(err)
         })
         .finally(() => {
             profileEditPopup.renderLoading(false, 'Сохранить')
